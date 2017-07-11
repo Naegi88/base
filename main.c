@@ -6,7 +6,7 @@
 #define Taster1_0 (PINB & (1<<PB1))
 
 #define Taster2_1 !(PINB & (1<<PB2))
-#define Taster2_0 (PINB & (1<<PB2))
+#define Taster2_0 (PINB & (1<<PB2))		//Pin abfrage
 
 
 #define LED1_0 PORTD &= ~(1<<PD0);
@@ -37,9 +37,11 @@ int main(void)
 {
 
 	long x;
+	int y;
 	
 	x = 1;
-
+	y = 1;
+	
 	DDRD = 0xFF;//Port D als Ausgag setzen
 	
 	DDRB &= ~(1<<PB1);//Port B als eingang setzen
@@ -163,6 +165,11 @@ int main(void)
 				LED8_0;
 				LED1_0;
 	 
+	 
+	 while(Taster2_1)
+	 {
+		PORTD = 0xFF;
+	 }
 
 	}//end of while
 	
