@@ -62,11 +62,7 @@ int main(void)
 				LED1_1;
 				LED8_1;
 			}
-			
-			if(Taster2_1)
-			{
-				break;
-			}
+		
 				LED1_0;
 				LED8_0;//LEDs abschalten
 	
@@ -81,11 +77,7 @@ int main(void)
 				LED2_1;
 				LED7_1;
 			}
-			
-			if(Taster2_1)
-			{
-				break;
-			}
+		
 				LED2_0;
 				LED7_0;
 		
@@ -100,10 +92,6 @@ int main(void)
 				LED6_1;
 			}
 			
-			if(Taster2_1)
-			{
-				break;
-			}
 				LED3_0;
 				LED6_0;
 				
@@ -118,10 +106,6 @@ int main(void)
 				LED5_1;
 			}
 			
-			if(Taster2_1)
-			{
-				break;
-			}
 				LED4_0;
 				LED5_0;
 				
@@ -136,10 +120,6 @@ int main(void)
 				LED4_1;
 			}
 			
-			if(Taster2_1)
-			{
-				break;
-			}
 				LED5_0;
 				LED4_0;
 				
@@ -154,10 +134,6 @@ int main(void)
 				LED3_1;
 			}
 			
-			if(Taster2_1)
-			{
-				break;
-			}
 				LED6_0;
 				LED3_0;
 				
@@ -173,10 +149,6 @@ int main(void)
 				LED2_1;
 			}
 			
-			if(Taster2_1)
-			{
-				break;
-			}
 				LED7_0;
 				LED2_0;
 	
@@ -189,11 +161,7 @@ int main(void)
 				LED8_1;
 				LED1_1;
 			}
-			
-			if(Taster2_1)
-			{
-				break;
-			}
+		
 				LED8_0;
 				LED1_0;
 	 
@@ -220,29 +188,6 @@ int main(void)
 	 y=0;
 
 	}//end of while
-	
-	 
-	 while(Taster2_1)
-	 {
-		do
-			{
-				y++;
-	 
-				for(x=0; x<100000; x++)
-					{
-						PORTD = 0xAA;
-					}
-				
-				for(x=0; x<100000; x++)
-					{
-						PORTD = 0x55;
-					}
-			}while(y<10);
-		
-	 }
-	 
-	 y=0;
-
 	
 	return 0;
 }//end of main
