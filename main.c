@@ -40,7 +40,7 @@ int main(void)
 	int y;
 	
 	x = 1;
-	y = 1;
+	y = 0;
 	
 	DDRD = 0xFF;//Port D als Ausgag setzen
 	
@@ -168,8 +168,24 @@ int main(void)
 	 
 	 while(Taster2_1)
 	 {
-		PORTD = 0xFF;
+		do
+			{
+				y++;
+	 
+				for(x=0; x<100000; x++)
+					{
+						PORTD = 0xAA;
+					}
+				
+				for(x=0; x<100000; x++)
+					{
+						PORTD = 0x55;
+					}
+			}while(y<10);
+		
 	 }
+	 
+	 y=0;
 
 	}//end of while
 	
