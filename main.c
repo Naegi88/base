@@ -42,17 +42,13 @@ int main(void)
 {
 	short zeit1;
 	short zeit2;
-	long x;
 	char y;
 	char p;
-	char q;
 	
 	zeit1 = 50;
 	zeit2 = 100;
-	x = 1;
 	y = 0;
 	p = 0;
-	q = 0;
 	
 	DDRD = 0xFF;//Port D als Ausgag setzen
 	
@@ -284,7 +280,7 @@ int main(void)
 							LED7_1
 							_delay_ms(zeit2);// 4
 							
-							LED1_1
+							LED1_1 
 							LED2_1
 							LED3_1
 							LED4_1
