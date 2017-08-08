@@ -1,3 +1,4 @@
+	
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -38,18 +39,19 @@
 #define LED8_0 PORTD &= ~(1<<PD7);
 #define LED8_1 PORTD |= (1<<PD7);     //Alle LEDs definiert mit Behfehl 1 und 0 
 
+
+void led(char nr, char zustand);
+
+int taster(char tas);
+
+
 int main(void)
 {
-	short zeit1;
-	short zeit2;
-	char y;
-	char p;
+	char y = 0;
+	char p = 0;
+	int x = 150;
 	
-	zeit1 = 50;
-	zeit2 = 100;
-	y = 0;
-	p = 0;
-	
+	{	//pin belegung
 	DDRD = 0xFF;//Port D als Ausgag setzen
 	
 	DDRB &= ~(1<<PB1);//Port B als eingang setzen
@@ -57,273 +59,125 @@ int main(void)
 	PORTB |= (1<<PB1);//Pull up wiederstand aktivieren 
 	PORTB |= (1<<PB2);
 	PORTB |= (1<<PB3);
+	}
+	
 	
 		while(1)
 	{
-	
-			if((Taster1_1) || (y > 0) && (y < 3))
-			{	LED1_0
-				LED2_0
-				LED3_0
-				LED4_0
-				LED5_0
-				LED6_0
+			LED1_1
+			
+			if(taster(1)==1)
+			{
+				LED7_1	
+			}
+			
+			if(taster(2)==1)
+			{
 				LED7_0
-				LED1_1
-				
-				_delay_ms(zeit1);
-			
-				LED2_1
-				
-				_delay_ms(zeit1);
-				
-				LED3_1
-				
-				_delay_ms(zeit1);
-			
-				LED4_1
-				
-				_delay_ms(zeit1);
-			
-				LED5_1
-				
-				_delay_ms(zeit1);
-				
-				LED6_1
-				
-				_delay_ms(zeit1);
-				
-				LED1_0
-				
-				_delay_ms(zeit1);
-			
-				LED2_0
-				
-				_delay_ms(zeit1);
-				
-				LED3_0
-				
-				_delay_ms(zeit1);
-			
-				LED4_0
-				
-				_delay_ms(zeit1);
-			
-				LED5_0
-				
-				_delay_ms(zeit1);
-				
-				LED6_0
-				
-				_delay_ms(zeit1);
-			y++;
-			p = 0;
-			
 			}
 			
-			
-			
-			else if (p == 0)	// 0
-			{
-				y = 0;
-				LED1_1
-				LED2_1
-				LED3_1
-				LED4_1
-				LED5_1
-				LED6_1
-				
-
-			}
-			
-			
-			if(Taster2_1)
-				{
-					p++;
-					_delay_ms(170);
-				}
-				
-			switch(p)
-			{
-				case 1: 	LED1_0
-							LED2_1
-							LED3_1
-							LED4_0
-							LED5_0
-							LED6_0
-							LED7_0
-							break;
-							
-				case 2: 	LED1_1
-							LED2_1
-							LED3_0
-							LED4_1
-							LED5_1
-							LED6_0
-							LED7_1
-							break;	
-						
-				case 3: 	LED1_1
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_0
-							LED6_0
-							LED7_1
-							break;
-								
-				case 4: 	LED1_0
-							LED2_1
-							LED3_1
-							LED4_0
-							LED5_0
-							LED6_1
-							LED7_1
-							break;
-							
-				case 5: 	LED1_1
-							LED2_0
-							LED3_1
-							LED4_1
-							LED5_0
-							LED6_1
-							LED7_1
-							break;
-							
-				case 6: 	LED1_1
-							LED2_0
-							LED3_1
-							LED4_1
-							LED5_1
-							LED6_1
-							LED7_1
-							break;
-							
-				case 7: 	LED1_1
-							LED2_1
-							LED3_1
-							LED4_0
-							LED5_0
-							LED6_0
-							LED7_0
-							break;
-								
-				case 8: 	LED1_1
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_1
-							LED6_1
-							LED7_1
-							break;	
-							
-				case 9: 	LED1_1
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_0
-							LED6_1
-							LED7_1
-							break;
-							
-				case 10:	LED1_1
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_0
-							LED6_1
-							LED7_1
-							_delay_ms(zeit2);// 9
-							
-							LED1_1
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_1
-							LED6_1
-							LED7_1
-							_delay_ms(zeit2);// 8
-							
-							LED1_1
-							LED2_1
-							LED3_1
-							LED4_0
-							LED5_0
-							LED6_0
-							LED7_0
-							_delay_ms(zeit2);// 7
-							
-							LED1_1
-							LED2_0
-							LED3_1
-							LED4_1
-							LED5_1
-							LED6_1
-							LED7_1
-							_delay_ms(zeit2);// 6
-							
-							LED1_1
-							LED2_0
-							LED3_1
-							LED4_1
-							LED5_0
-							LED6_1
-							LED7_1
-							_delay_ms(zeit2);// 5
-							
-							LED1_0
-							LED2_1
-							LED3_1
-							LED4_0
-							LED5_0
-							LED6_1
-							LED7_1
-							_delay_ms(zeit2);// 4
-							
-							LED1_1 
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_0
-							LED6_0
-							LED7_1
-							_delay_ms(zeit2);// 3
-							
-							LED1_1
-							LED2_1
-							LED3_0
-							LED4_1
-							LED5_1
-							LED6_0
-							LED7_1
-							_delay_ms(zeit2);// 2
-							
-							LED1_0
-							LED2_1
-							LED3_1
-							LED4_0
-							LED5_0
-							LED6_0
-							LED7_0
-							_delay_ms(zeit2);// 1
-							
-							LED1_1
-							LED2_1
-							LED3_1
-							LED4_1
-							LED5_1
-							LED6_1
-							LED7_0
-							_delay_ms(zeit2);// 0
-							
-							p = 0;
-							
-							break;
-							
-			}
-			
-
+			led(4,taster(3));
+	
 	}//end of while
 	
 	return 0;
 }//end of main
+
+
+void led(char nr, char zustand)
+{		//led steuerung
+	if(zustand == 1)
+	{
+		switch(nr)
+		{
+			case 1: LED1_1
+				break;
+				
+			case 2: LED2_1
+				break;
+				
+			case 3: LED3_1
+				break;
+				
+			case 4: LED4_1
+				break;
+				
+			case 5: LED5_1
+				break;
+				
+			case 6: LED6_1
+				break;
+				
+			case 7: LED7_1
+				break;
+				
+			case 8: LED8_1
+				break;		
+			
+		}
+	}
+	
+	else
+	{
+		switch(nr)
+		{
+			case 1: LED1_0
+				break;
+				
+			case 2: LED2_0
+				break;
+				
+			case 3: LED3_0
+				break;
+				
+			case 4: LED4_0
+				break;
+				
+			case 5: LED5_0
+				break;
+				
+			case 6: LED6_0
+				break;
+				
+			case 7: LED7_0
+				break;
+				
+			case 8: LED8_0
+				break;		
+			
+		}
+	}
+}	
+
+int taster(char tas)
+{		//Taster kontrolle
+
+	int res = 0;
+	
+		switch(tas)
+			{
+				case 1: if(!(PINB & (1<<PB1)))
+						{
+							res = 1;
+						}	
+						
+					break;
+					
+				case 2: if(!(PINB & (1<<PB2)))
+						{
+							res = 1;
+						}
+						
+					break;
+					
+				case 3: if(!(PINB & (1<<PB3)))
+						{
+							res = 1;
+						}
+						
+					break;
+				
+			}
+			
+	return res;
+}
