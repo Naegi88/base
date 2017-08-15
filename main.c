@@ -1,32 +1,48 @@
-	
 #include <stdlib.h>
 #include <avr/io.h>
-#include <util/delay.h>
+#include "lcd.h"   //" = Lib in akt Projektverzeichnis
+#include <avr/interrupt.h>
 
-#define F_CPU 80000000UL
+#ifndef F_CPU
+#define F_CPU    8000000
+#endif
 
+uint32_t x;
+uint8_t y, richtung;
 
 int main(void)
 {
-	char y = 0;
-	char p = 0;
-	int x = 150;
+	DDRD=0xFF;
+	PORTD = 0xFF;
 	
-	{	//pin belegung
-	DDRD = 0xFF;//Port D als Ausgag setzen
-	
-	DDRB &= ~(1<<PB1);//Port B als eingang setzen
-	
-	PORTB |= (1<<PB1);//Pull up wiederstand aktivieren 
-	PORTB |= (1<<PB2);
-	PORTB |= (1<<PB3);
-	}
+	DDRB = 0xFF;
+	PORTB = 0xFF;
 	
 	
-		while(1)
+
+	
+	
+	lcd_init(LCD_DISP_ON_CURSOR_BLINK);  // initialisieren		
+	lcd_clrscr();
+    lcd_gotoxy(6,0);
+	lcd_puts("Start up");
+	lcd_gotoxy(4,1);
+	lcd_puts("Ruag Defence");
+	lcd_gotoxy(3,2);
+	lcd_puts("Silvan Naegeli");
+	lcd_gotoxy(5,3);
+	lcd_puts("15.08.2017");
+	
+	
+
+						
+	while(1)
 	{
-		
-	}//end of while
 	
+	
+
+	}//end of while
 	return 0;
 }//end of main
+
+
