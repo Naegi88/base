@@ -9,7 +9,7 @@
 
 #define Aktivierungstaster !(PINC & (1<<PC0))
 #define Tuerkontakt !(PINC & (1<<PC1))
-#define taster0 !(PINC & (1<<PC5))
+#define Atom !(PINC & (1<<PC5))
 #define taster1 !(PINC & (1<<PC2))
 #define taster2 !(PINC & (1<<PC3))
 #define taster3 !(PINC & (1<<PC4))
@@ -27,8 +27,9 @@
 
 long o = 0;
 long p = 0;
-char min = 2;
-char state = AUS;
+long l = 0;
+long x = 0;
+long y = 0;
 int ms_100 = 0;
 long sec = 1;
 uint16_t ISR_zaeler;
@@ -78,14 +79,60 @@ int main(void)
 	
 	lcd_init(LCD_DISP_ON_CURSOR_BLINK);  // initialisieren		
 	lcd_clrscr();
-	
+	int  signal; 
+	int  signal_alt;
 	
 
 	while(1)
 	{
-	lcd_gotoxy(10,1);
-	lcd_count_16(sec);
+		
+
+		signal = PINC & (1<<PC5);  // Signal einlesen
+
+		if ((signal!=signal_alt) && (o==0))
+		 {y = l;
+		  l = 0;
+		  o++;
+		  signal_alt = signal;
+		  lcd_gotoxy(0,1);
+		 lcd_puts("      ");
+		 
+		 lcd_gotoxy(0,1);
+		 lcd_count_16(y);
+		 }
+		 
+		 if ((signal!=signal_alt) && (o ==1))
+		 {x = p;
+		  p = 0;
+		  o--;
+		  signal_alt = signal;
+		  lcd_gotoxy(0,0);
+		 lcd_puts("    ");
+		 
+		 lcd_gotoxy(0,0);
+		 lcd_count_16(x);
+		 }
+		
+		 if(o==1)
+		 {
+			p++;
+			
+		 }
+		 
+		 if(o==0)
+		 {
+			l++;
+			
+		 }
+		 
+		 
+		 
+		 
 	}
+	
+	
+	
+	
 	return 0;
 }//end of main
 
