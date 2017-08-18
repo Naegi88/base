@@ -26,38 +26,37 @@
 #define ALARM	2
 
 long o = 0;
-long p = 0;
-long l = 0;
+long ms = 0;
+int ms_10 = 0;
+long sec = 0;
 long x = 0;
 long y = 0;
-int ms_100 = 0;
-long sec = 1;
-uint16_t ISR_zaeler;
+uint16_t ISR_zaeler;			//definiere variabel
 
-ISR (TIMER0_OVF_vect)
+ISR (TIMER0_OVF_vect)			//Timer
 {
 	TCNT0 = 0;
 	ISR_zaeler++;
-	if(ISR_zaeler== 13)
+	if(ISR_zaeler== 1)
 	{
 		ISR_zaeler=0;
-		ms_100++;
+		ms++;
 	}
 	
-	if(ms_100==10)
+	if(ms==10)
 	{
-		ms_100 = 0;
-		sec++;
+		ms = 0;
+		ms_10++;
 	}
 	
-}
+}			//end uf ISR
 
 
 
 int main(void)
 {
 	TCCR0A		= 0x00;
-	TCCR0B		= 0x04;
+	TCCR0B		= 0x02;
 	TIMSK0		|= (1<<TOIE0);
 	TIFR0		|(1<<TOV0);
 	sei();
@@ -80,7 +79,7 @@ int main(void)
 	lcd_init(LCD_DISP_ON_CURSOR_BLINK);  // initialisieren		
 	lcd_clrscr();
 	int  signal; 
-	int  signal_alt;
+	int  signal_alt;			// daklaration DCF77 Signal
 	
 
 	while(1)
@@ -90,41 +89,54 @@ int main(void)
 		signal = PINC & (1<<PC5);  // Signal einlesen
 
 		if ((signal!=signal_alt) && (o==0))
-		 {y = l;
-		  l = 0;
-		  o++;
-		  signal_alt = signal;
-		  lcd_gotoxy(0,1);
-		 lcd_puts("      ");
+		 {
+		  y = ms_10;
+		  ms_10 = 0;
+		  
+		  
+		  o++;			//Sicherstelung das dieses if nur einmal pasiert
+		  signal_alt = signal;			//gleichstelung
+		  
+		 lcd_gotoxy(0,1);
+		 lcd_puts("      ");			//Bildschirm Leeren
 		 
 		 lcd_gotoxy(0,1);
-		 lcd_count_16(y);
+		 lcd_count_16(y);			//Ausgabe der pausen zeit
+		 beeper1_0;
+		 
 		 }
 		 
 		 if ((signal!=signal_alt) && (o ==1))
-		 {x = p;
-		  p = 0;
-		  o--;
-		  signal_alt = signal;
-		  lcd_gotoxy(0,0);
-		 lcd_puts("    ");
+		 {
+		  x = ms_10;
+		  ms_10 = 0;
+		  sec++;
+		  
+		  o--;			//Sicherstelung das dieses if nur einmal pasiert
+		  signal_alt = signal;			//gleichstelung
+		  
+		 lcd_gotoxy(0,0);
+		 lcd_puts("    ");			//Bildschirm Leeren
 		 
 		 lcd_gotoxy(0,0);
-		 lcd_count_16(x);
+		 lcd_count_16(x);			//ausgabe des Logischen 1
+		 
+		 lcd_gotoxy(10,2);
+		 lcd_count_16(sec);			//sec ausgabe
 		 }
 		
-		 if(o==1)
+		
+		 if(y>400)
 		 {
-			p++;
-			
-		 }
 		 
-		 if(o==0)
-		 {
-			l++;
-			
-		 }
+		  lcd_gotoxy(10,2);
+		  lcd_puts("  ");			//Bildschirm Leeren
 		 
+			sec = 0;			//Bei einer minute sec reseten
+			
+			beeper1_1;
+		 }
+		
 		 
 		 
 		 
